@@ -1,0 +1,81 @@
+{% extends "layout.html" %}
+{% block content %}
+
+        <form method="POST" action="">
+            {{ form.hidden_tag() }}
+            <fieldset class="form-group">
+                <div class="form-group">
+                    {{ form.domain.label(class="form-control-label") }}
+
+                    {% if form.domain.errors %}
+                        {{ form.domain(class="form-control form-control-lg is-invalid") }}
+                        <div class="invalid-feedback">
+                            {% for error in form.domain.errors %}
+                                <span>{{ error }}</span>
+                            {% endfor %}
+                        </div>
+                    {% else %}
+                        {{ form.domain(class="form-control form-control-lg") }}
+                    {% endif %}
+                </div>
+                <div class="form-group">
+                    {{ form.parentTableName.label(class="form-control-label") }}
+
+                    {% if form.parentTableName.errors %}
+                        {{ form.parentTableName(class="form-control form-control-lg is-invalid") }}
+                        <div class="invalid-feedback">
+                            {% for error in form.parentTableName.errors %}
+                                <span>{{ error }}</span>
+                            {% endfor %}
+                        </div>
+                    {% else %}
+                        {{ form.parentTableName(class="form-control form-control-lg") }}
+                    {% endif %}
+                </div>
+                <div class="form-group">
+                    {{ form.recordCnt.label(class="form-control-label") }}
+                    {% if form.recordCnt.errors %}
+                        {{ form.recordCnt(class="form-control form-control-lg is-invalid") }}
+                        <div class="invalid-feedback">
+                            {% for error in form.recordCnt.errors %}
+                                <span>{{ error }}</span>
+                            {% endfor %}
+                        </div>
+                    {% else %}
+                        {{ form.recordCnt(class="form-control form-control-lg") }}
+                    {% endif %}
+                </div>
+                <div class="form-group">
+                    {{ form.varcharPrefix.label(class="form-control-label") }}
+                    {% if form.varcharPrefix.errors %}
+                        {{ form.varcharPrefix(class="form-control form-control-lg is-invalid") }}
+                        <div class="invalid-feedback">
+                            {% for error in form.varcharPrefix.errors %}
+                                <span>{{ error }}</span>
+                            {% endfor %}
+                        </div>
+                    {% else %}
+                        {{ form.varcharPrefix(class="form-control form-control-lg") }}
+                    {% endif %}
+                </div>
+                <div class="form-group">
+                    {{ form.beginDttm.label(class="form-control-label") }}
+                    {% if form.beginDttm.errors %}
+                        {{ form.beginDttm(class="form-control form-control-lg is-invalid") }}
+                        <div class="invalid-feedback">
+                            {% for error in form.beginDttm.errors %}
+                                <span>{{ error }}</span>
+                            {% endfor %}
+                        </div>
+                    {% else %}
+                        {{ form.beginDttm(class="form-control form-control-lg") }}
+                    {% endif %}
+                </div>
+            </fieldset>
+            <div class="form-group">
+                {{ form.fetchChildTables(class="btn btn-outline-info btn-primary") }}
+            </div>
+        </form>
+
+
+{% endblock %}

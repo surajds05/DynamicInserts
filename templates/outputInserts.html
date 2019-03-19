@@ -1,0 +1,13 @@
+{% extends 'layout.html' %}
+
+{% block content %}
+
+<table class="table">
+        {% for rec in output %}
+            <tr>
+                <td style="word-wrap:break-word; min-width: 200px;max-width: 200px;">{{ rec }}</td>
+            </tr>
+        {% endfor %}
+    </table>
+
+{% endblock %}

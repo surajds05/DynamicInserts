@@ -1,0 +1,135 @@
+{% extends "layout.html" %}
+{% block content %}
+<div>
+
+        <form method="POST" action="" id="inputsForm">
+            {{ form.hidden_tag() }}
+            <fieldset class="form-group">
+                <div class="form-group">
+                    {{ form.domain.label(class="form-control-label") }}
+
+                    {% if form.domain.errors %}
+                        {{ form.domain(class="form-control form-control-lg is-invalid") }}
+                        <div class="invalid-feedback">
+                            {% for error in form.domain.errors %}
+                                <span>{{ error }}</span>
+                            {% endfor %}
+                        </div>
+                    {% else %}
+                        {{ form.domain(class="form-control form-control-lg") }}
+                    {% endif %}
+                </div>
+                <div class="form-group">
+                    {{ form.parentTableName.label(class="form-control-label") }}
+
+                    {% if form.parentTableName.errors %}
+                        {{ form.parentTableName(class="form-control form-control-lg is-invalid") }}
+                        <div class="invalid-feedback">
+                            {% for error in form.parentTableName.errors %}
+                                <span>{{ error }}</span>
+                            {% endfor %}
+                        </div>
+                    {% else %}
+                        {{ form.parentTableName(class="form-control form-control-lg") }}
+                    {% endif %}
+                </div>
+                <div class="form-group">
+                    {{ form.recordCnt.label(class="form-control-label") }}
+                    {% if form.recordCnt.errors %}
+                        {{ form.recordCnt(class="form-control form-control-lg is-invalid") }}
+                        <div class="invalid-feedback">
+                            {% for error in form.recordCnt.errors %}
+                                <span>{{ error }}</span>
+                            {% endfor %}
+                        </div>
+                    {% else %}
+                        {{ form.recordCnt(class="form-control form-control-lg") }}
+                    {% endif %}
+                </div>
+                <div class="form-group">
+                    {{ form.varcharPrefix.label(class="form-control-label") }}
+                    {% if form.varcharPrefix.errors %}
+                        {{ form.varcharPrefix(class="form-control form-control-lg is-invalid") }}
+                        <div class="invalid-feedback">
+                            {% for error in form.varcharPrefix.errors %}
+                                <span>{{ error }}</span>
+                            {% endfor %}
+                        </div>
+                    {% else %}
+                        {{ form.varcharPrefix(class="form-control form-control-lg") }}
+                    {% endif %}
+                </div>
+                <div class="form-group">
+                    {{ form.beginDttm.label(class="form-control-label") }}
+                    {% if form.beginDttm.errors %}
+                        {{ form.beginDttm(class="form-control form-control-lg is-invalid") }}
+                        <div class="invalid-feedback">
+                            {% for error in form.beginDttm.errors %}
+                                <span>{{ error }}</span>
+                            {% endfor %}
+                        </div>
+                    {% else %}
+                        {{ form.beginDttm(class="form-control form-control-lg") }}
+                    {% endif %}
+                </div>
+            </fieldset>
+            <div class="form-group">
+                {{ form.fetchChildTables(class="btn btn-outline-info btn-primary") }}
+            </div>
+        </form>
+
+</div>
+{% if displayChildTables %}
+   <form method="POST" id="childTables">
+        <table class="table table-bordered" id="childTablesList">
+        <thead class="thead-light">
+            <tr>
+                <th>Select</th>
+                <th>Child Table</th>
+                <th>Child Table FK</th>
+                <th>Parent Table</th>
+                <th>Parent Table PK</th>
+            </tr>
+        </thead>
+        {% for rec in child_tables %}
+            <tr>
+                <td><input type="checkbox" name="childTables" value={{ rec[0] }}></td>
+                <td>{{ rec[0] }}</td>
+                <td>{{ rec[1] }}</td>
+                <td>{{ rec[2] }}</td>
+                <td>{{ rec[3] }}</td>
+            </tr>
+        {% endfor %}
+    </table>
+    <button type="submit" class="btn btn-outline-info btn-primary" id="btn1">Insert Data</button>
+
+</form>
+
+<script>
+var table = $('#childTablesList').DataTable();
+
+$("form").on('submit', function(e){
+   var $form = $(this);
+
+   // Iterate over all checkboxes in the table
+   table.$('input[type="checkbox"]').each(function(){
+      // If checkbox doesn't exist in DOM
+      if(!$.contains(document, this)){
+         // If checkbox is checked
+         if(this.checked){
+            // Create a hidden element
+            $form.append(
+               $('<input>')
+                  .attr('type', 'hidden')
+                  .attr('name', this.name)
+                  .val(this.value)
+            );
+         }
+      }
+   });
+});
+</script>
+{% endif %}
+</div>
+        
+{% endblock %}
